@@ -7,8 +7,7 @@
 ### 팀원
 | 안형진 | 조해원 | 전수연 | 임연경 | 박미현 |
 |:----------:|:----------:|:----------:|:----------:|:----------:|
-|![image](https://github.com/user-attachments/assets/12a7a86e-bed7-420b-a475-511c00a8400b)
-  |  |  |  |  |
+|<img width="140px" src="![형진]"/>|<img width="140px" src="![해원]" />|<img width="140px" src="![수연]" />|<img width="140px" src="!![연경]" />|<img width="140px" src="!![미현]" />|
 | 1 | 2 | 3 | 4 | 5 | 
 </br>
 
