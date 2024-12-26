@@ -49,6 +49,9 @@
    >
    > LLM 연동
    >
+
+
+
    
 ✔ **산출물**
    > PDF문서
@@ -59,6 +62,14 @@
    >
    > 코드
    > 
+
+
+   > 평가 결과
+      - context_recall': 0.7000
+      - llm_context_precision_with_reference': 0.8833
+      - faithfulness': 0.8358
+      - answer_relevancy': 0.6326
+
 
 ## 프로젝트 진행 과정
 ❗️ 화면 구성은 생략하고 RAG를 위한 백엔드 시스템 구축에 집중 ❗️
