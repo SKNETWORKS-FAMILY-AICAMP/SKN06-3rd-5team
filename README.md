@@ -8,7 +8,8 @@
 | 안형진 | 조해원 | 전수연 | 임연경 | 박미현 |
 |:----------:|:----------:|:----------:|:----------:|:----------:|
 |![image](https://github.com/user-attachments/assets/12a7a86e-bed7-420b-a475-511c00a8400b)
-  |  |  |  |  |
+  |![image](https://github.com/user-attachments/assets/89230372-9259-4b74-87fa-e5fa01fb48e8)
+  |  |  |  |
 | 1 | 2 | 3 | 4 | 5 | 
 </br>
 
