@@ -12,10 +12,10 @@
 
 </br>
 
-| 임연경 | 박미현 |
+| 박미현 | 임연경 | 
 |:----------:|:----------:|
-|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EC%97%B0%EA%B2%BD.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EB%AF%B8%ED%98%84.png" alt="image" width="200" height="250"/>|
-| **"우왕~🤴🏻"** 된당~ 흐히히 | 우리 모델 좋은거 **"인종~?🤴🏻"** |
+|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EB%AF%B8%ED%98%84.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EC%97%B0%EA%B2%BD.png" alt="image" width="200" height="250"/>|
+| 우리 모델 좋은거 **"인종~?🤴🏻"** |**"우왕~🤴🏻"** 된당~ 흐히히|
 
 # 🤴🏻👑 역사적 인물이나 사건에 대해 알려주는 교육 챗봇 🤖
 
@@ -98,9 +98,16 @@
 
 #### 1.2 데이터 전처리
   - **작업**
-    > 한자 제거, 문장 말머리 번호 제거, 중복 제거, 줄바꿈 제거 등
+    - 한자 제거
     >
-  - **코드 (Python)**
+    > ```full_text = re.sub(r"\([一-龥]+\)", "", full_text) ```
+    - "관련사료" 글씨 제거
+    >
+    >```full_text = re.sub(r"관련사료", "", full_text)```
+    - 줄바꿈 제거
+    >
+    >```full_text = re.sub(r"\n", "", full_text)```
+  - **코드**
     ```
     full_text = [doc.page_content for doc in load_docs] 
     full_text = ''.join(full_text)
@@ -320,38 +327,50 @@
          
          result = evaluate(dataset=eval_dataset, metrics=metrics)
          ```
-### 평가 결과
-   ![image](https://github.com/user-attachments/assets/6e38430a-7864-4ac0-9907-6bb0e9eaf34b)
-
-   1. **context_recall: 0.7000** </br>
-      해석: 점수가 70%로 중간 정도 성능을 보였습니다. 모델이 컨텍스트 내 정보를 어느 정도 활용하고 있지만, 일부 중요한 정보를 놓치고 있을 가능성이 있습니다.</br>
-
-   2. **llm_context_precision_with_reference: 0.8833** </br>
-      해석: 점수가 88%로 높은 수준을 보이고 있습니다. 모델은 제공된 문맥 내 정보를 정확히 이해하고, 기준에 부합하는 답변을 생성하고 있음을 보여줍니다.</br>
+### ⭐️ 평가 결과 ⭐️
+![image](https://github.com/user-attachments/assets/6e38430a-7864-4ac0-9907-6bb0e9eaf34b)
    
-   3. **faithfulness: 0.8358**</br>
-      해석: 83%로 신뢰할 만한 수준이지만, 간혹 정보 왜곡이 있을 가능성을 나타냅니다.</br>
+   #### ⭐️ 결과 해석 ⭐️
+   - **context_recall: 0.7000**
+      > 점수가 70%로 중간 정도 성능
+      > 
+      > 모델이 컨텍스트 내 정보를 어느 정도 활용하고 있지만, 일부 중요한 정보를 놓치고 있는 것같음
    
-   4. **answer_relevancy: 0.6326**</br>
-      해석: 63%로 상대적으로 낮은 점수입니다. 질문과 관련 없는 내용이 포함되거나, 질문에 대한 직접적인 답변을 생성하지 못했을 가능성이 큽니다.</br>
+   - **llm_context_precision_with_reference: 0.8833**
+      > 점수가 88%로 높은 수준
+      > 
+      > 모델은 제공된 문맥 내 정보를 정확히 이해하고, 기준에 부합하는 답변을 생성하고 있는 것같음
+   
+   - **faithfulness: 0.8358**
+      > 83%로 신뢰할 만한 수준
+      >
+      > 정보 왜곡 의심
+   
+   - **answer_relevancy: 0.6326**
+      > 63%로 상대적으로 낮은 점수
+      >
+      > 질문과 관련 없는 내용이 포함되거나, 질문에 대한 직접적인 답변을 생성하지 못하는 것같음
+     
       
-   #### 개선 방향:
-   - **컨텍스트 선택 최적화:** </br>
-      - 더 적합한 정보를 검색하고 모델에 제공하기 위한 컨텍스트 필터링 방식을 개선하세요.</br>
-      - 중요한 정보와 덜 중요한 정보를 구분해, 관련성이 높은 데이터만 모델에 입력하도록 설계하세요.
+   #### ⭐️ 개선 방향 ⭐️
+   - **컨텍스트 선택 최적화:**
+     > 더 적합한 정보를 검색하고 모델에 제공하기 위한 컨텍스트 필터링 방식을 개선
+     >
+     > 중요한 정보와 덜 중요한 정보를 구분해, 관련성이 높은 데이터만 모델에 입력하도록 설계
+     > 
    - **질문 이해 능력 강화:**
-
-      - 모델이 질문의 의도를 더 잘 이해할 수 있도록 학습 데이터를 개선하거나 fine-tuning을 적용하세요.
-      - 질문의 구조를 분석하고, 의도를 추출하는 별도의 처리 단계를 추가하세요.
+     > 모델이 질문의 의도를 더 잘 이해할 수 있도록 학습 데이터를 개선하거나 fine-tuning을 적용
+     > 
+     > 질문의 구조를 분석하고, 의도를 추출하는 별도의 처리 단계를 추가
    - **RAG 워크플로우 개선:**
-
-      - 벡터 데이터베이스에서 검색된 정보의 품질을 높이기 위해 데이터셋의 벡터화를 정교하게 다듬으세요.
-      - 관련성이 낮은 검색 결과를 걸러내는 후처리 알고리즘을 추가적으로 설계하세요.
+      > 벡터 데이터베이스에서 검색된 정보의 품질을 높이기 위해 데이터셋의 벡터 최적화
+      >
+      > 관련성이 낮은 검색 결과를 걸러내는 후처리 알고리즘을 추가적으로 설계
    - **결과 모니터링 및 반복 개선:**
-      
-      - 여러 지표를 모니터링하며, 모델 성능의 균형을 맞추는 과정을 반복하세요.
-      - 특히, 낮은 점수를 보이는 answer_relevancy 지표 개선에 우선적으로 집중하는 것이 중요합니다.
-      
+      > 여러 지표를 모니터링하며, 모델 성능의 균형을 맞추는 과정을 반복
+      >
+      >  특히, 낮은 점수를 보이는 answer_relevancy 지표 개선에 우선적으로 집중
+   
 
 
 ### Stack
