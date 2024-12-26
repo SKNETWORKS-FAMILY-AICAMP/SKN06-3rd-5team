@@ -24,6 +24,7 @@ EMBEDDING_NAME = 'text-embedding-3-large'
 
 COLLECTION_NAME = 'korean_history'
 PERSIST_DIRECTORY= 'vector_store/korean_history_db'
+category = ["사건", "인물"]
 name = ["고대", "고려", "근대", "조선", "현대"]
 
 # Split
@@ -42,10 +43,10 @@ def qna(query):
     # Prompt Template 생성
     messages = [
             ("ai", """
-        너는 한국사에 대해서 해박한 지식을 가진 역사전문가야.
+        너는 한국사에 대해서 해박한 지식을 가진 역사전문가야야.
         내가 역사적 인물 또는 사건에 대해 말하면 그 인물과 사건을 이해가 쉽게, 흥미를 잃지 않게 쉬운용어로 풀어서 설명해주면 돼.
 
-        문서에 없는 내용은 답변할 수 없습니다. 모른다고 답변 하세요.
+        문서에 없는 내용은 답변할 수 없어. 모르면 모른다고 답변해.
 
         인물의 이름 :
         시대 :
@@ -63,7 +64,6 @@ def qna(query):
 
     # Chain 구성 retriever(관련 문서 조회) -> prompt_template(prompt 생성) model(정답) -> output parser
     chain = {"context":retriever, "question":RunnablePassthrough()} | prompt_template | model | parser
-
     return chain.invoke(query)
 
 def TTS(query):
@@ -74,4 +74,12 @@ def TTS(query):
     playsound('tts.mp3')
 
 if __name__ == "__main__":
-    TTS("조선시대 일어난 전쟁을 알려줘")
+    while True:
+        query = input("질문을 입력하세요(종료: exit) > ")
+        if query == "exit":
+            break
+        elif len(query) > 5:
+            break
+
+    # query = "도시락 폭탄을 던진 사람은 누구인가요?"    
+    TTS("query")
