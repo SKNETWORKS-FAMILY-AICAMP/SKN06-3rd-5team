@@ -51,7 +51,7 @@
    >
 
 
-![image](https://github.com/user-attachments/assets/988694dc-79c2-4088-a629-0b5d12b85f9e)
+![image](https://github.com/user-attachments/assets/85efb451-f6c8-4688-892f-28b6688cde6e)
 
    
 ✔ **산출물**
