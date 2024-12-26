@@ -3,13 +3,17 @@
 3차 단위 프로젝트 - 안형진, 조해원, 전수연, 임연경, 박미현
 
 
-## (팀명) 
+## 갑진 파이브 ✋🏻
 ### 팀원
-| 안형진 | 조해원 | 전수연 | 임연경 | 박미현 |
-|:----------:|:----------:|:----------:|:----------:|:----------:|
-|<img width="140px" src="![형진]"/>|<img width="140px" src="![해원]" />|<img width="140px" src="![수연]" />|<img width="140px" src="!![연경]" />|<img width="140px" src="!![미현]" />|
-| 1 | 2 | 3 | 4 | 5 | 
+| 안형진 | 조해원 | 전수연 | 
+|:----------:|:----------:|:----------:|
+|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%98%95%EC%A7%84.png" alt="image" width="200" height="250"/> |<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%95%B4%EC%9B%90.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%88%98%EC%97%B0.jpg" alt="image" width="350" height="250"/>|
+
 </br>
+
+| 임연경 | 박미현 |
+|:----------:|:----------:|
+|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%97%B0%EA%B2%BD.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EB%AF%B8%ED%98%84.png" alt="image" width="200" height="250"/>|
 
 # 🤖 역사적 인물이나 사건에 대해 알려주는 교육 챗봇 🤖
 
@@ -46,15 +50,20 @@
    1. 데이터 수집
 
         > 프로젝트 주제에 맞는 데이터를 수집하는데, 정보에 허구가 없고 신뢰도가 높은 자료를 인용할 것.
-        > 시각화 자료를 제외하고, 텍스트 위주의 자료만 받아서 사용한다. 
-        > 국사편찬위원회의 자료 사용 - http://contents.history.go.kr/front/kc/main.do#self  
+        > 
+        > 시각화 자료를 제외하고, 텍스트 위주의 자료만 받아서 사용한다.
+        > 
+        > 국사편찬위원회의 자료 사용 - http://contents.history.go.kr/front/kc/main.do#self
+        > 
        
    2. 전처리
       
-         > 줄바꿈, 한자어 포함된 것을 주의하여 데이터 가공을 한다.
+      > 줄바꿈, 한자어 포함된 것을 주의하여 데이터 가공을 한다.
+      > 
 
    3. RAG 기반 벡터 데이터베이스 저장
-      >  
+      >  데이터 벡터화, 저장소 구성, 메타데이터 추가를 통해 검색을 할 수 있는 데이터베이스를 구축한다.
+      > 
    
    4. LLM 연동
       
@@ -63,29 +72,13 @@
 
 ![image](https://github.com/user-attachments/assets/85efb451-f6c8-4688-892f-28b6688cde6e)
 
-   
-✔ **산출물**
-   > PDF문서
-   >
-   > 데이터셋
-   >
-   > 시스템 구조
-   >
-   > 코드
-   > 
 
 
-   > 평가 결과
 
-      - context_recall': 0.7000
-      - llm_context_precision_with_reference': 0.8833
-      - faithfulness': 0.8358
-      - answer_relevancy': 0.6326  
-      
 
 
 ## 프로젝트 진행 과정
-❗️ 화면 구성은 생략하고 RAG를 위한 백엔드 시스템 구축에 집중 ❗️
+**❗️ 화면 구성은 생략하고 RAG를 위한 백엔드 시스템 구축에 집중 ❗️**
 </br>
 ### 1. 데이터 수집 및 전처리
 
@@ -95,6 +88,8 @@
     > 
   - **방법**
     > 공개 데이터셋 다운로드(우리역사넷 한국사연대기 PDF자료)
+    >
+    > 추가로 request를 이용하여 크롤링 진행 후 저장
     > 
 
 #### 1.2 데이터 전처리
@@ -103,6 +98,11 @@
     >
   - **코드 (Python)**
     ```
+    full_text = [doc.page_content for doc in load_docs] 
+    full_text = ''.join(full_text)
+    full_text = re.sub(r"관련사료", "", full_text)
+    full_text = re.sub(r"\([一-龥]+\)", "", full_text)
+    full_text = re.sub(r"\n", "", full_text)
     ```
 
 
@@ -117,8 +117,17 @@
     > Sentence Transformers, Hugging Face Transformers 등
     > 
 
-  - **코드 (Python)**
+  - **코드**
     ```
+      # Split
+      splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+          model_name=MODEL_NAME,
+          chunk_size=CHUNK_SIZE,
+          chunk_overlap=CHUNK_OVERLAP,
+      )
+      
+      # Embedding 모델 초기화
+      embedding_model = OpenAIEmbeddings(model=EMBEDDING_NAME)
     ```
 
 
@@ -128,11 +137,17 @@
     > 생성된 벡터를 벡터 데이터베이스에 저장
     > 
   - **도구**
-    > FAISS, Pinecone 등
+    > 
     > 
 
-  - **코드 (Python with FAISS?)**
+  - **코드**
     ```
+    # Vector store 연결
+    vector_store = Chroma(
+    collection_name=COLLECTION_NAME,
+    persist_directory=PERSIST_DIRECTORY,
+    embedding_function=embedding_model
+    )
     ```
 
 
@@ -147,8 +162,45 @@
     > OpenAI API, LangChain 등
     > 
 
-  - **코드 (Python with LangChain)**
+  - **코드**
     ```
+    # LLM 연동
+    from langchain_openai import ChatOpenAI
+    from langchain.prompts import ChatPromptTemplate
+    from langchain_core.output_parsers import StrOutputParser
+
+    MODEL_NAME = 'gpt-4o'
+
+    # LLM 모델 초기화
+    model = ChatOpenAI(model=MODEL_NAME)
+
+    # Prompt 템플릿 생성
+    messages = [
+       ("ai", """
+       너는 한국사에 대해서 해박한 지식을 가진 역사전문가야.
+       내가 역사적 인물 또는 사건에 대해 말하면 그 인물과 사건을 이해가 쉽게, 흥미를 잃지 않게 쉬운용어로 풀어서 설명해주면 돼.
+   
+       문서에 없는 내용은 답변할 수 없습니다. 모른다고 답변 하세요.
+
+       인물의 이름 :
+       시대 :
+       인물에 대해 알고 싶은 것 :
+    {context}"""),
+        ("human", "{question}"),
+       ]
+    prompt_template = ChatPromptTemplate(messages=messages)
+
+    # Output parser
+    parser = StrOutputParser()
+
+    # Langchain 구성
+    from langchain_core.runnables import RunnablePassthrough
+
+    # Vector 데이터베이스에서 검색 수행
+    retriever = vector_store.as_retriever(search_type="mmr")
+
+    # Chain 구성 retriever(관련 문서 조회) -> prompt_template(prompt 생성) model(정답) -> output parser
+    chain = {"context":retriever, "question":RunnablePassthrough()} | prompt_template | model | parser
     ```
 
 
@@ -162,11 +214,40 @@
   - **방법**
     > 정확성, 응답 속도 등 평가 지표 설정 및 측정
     > 
+  - **코드**
+    ```
+    ### 평가 데이터로 사용할 context 추출
+    total_samples = 4
 
+    # index shuffle 후 total_samples만큼 context 추출
+
+    idx_list = list(range(len(document_list)))
+    random.shuffle(idx_list)
+
+    eval_context_list = []
+    while len(eval_context_list) < total_samples:
+       idx = idx_list.pop()
+       context = document_list[idx].page_content
+       if len(context) > 100: # 100글자 이상인 text만 사용
+           eval_context_list.append(context)
+
+    len(eval_context_list)
+    ```
 #### 4.2 개선 및 최적화
   - **작업**
-    > 모델 튜닝, 하이퍼파라미터 조정 등
-    > 
+
+  - **코드**
+    ```
+    
+    ```
+
+### 평가 결과
+   - context_recall': 0.7000
+   - llm_context_precision_with_reference': 0.8833
+   - faithfulness': 0.8358
+   - answer_relevancy': 0.6326  
+      
+
 
 
 ### Stack
