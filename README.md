@@ -7,14 +7,14 @@
 ### 팀원
 | 안형진 | 조해원 | 전수연 | 
 |:----------:|:----------:|:----------:|
-|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%98%95%EC%A7%84.png" alt="image" width="200" height="250"/> |<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%95%B4%EC%9B%90.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%88%98%EC%97%B0.jpg" alt="image" width="350" height="250"/>|
+|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%97%B0%EA%B2%BD.png" alt="image" width="200" height="250"/> |<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%95%B4%EC%9B%90.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%88%98%EC%97%B0.jpg" alt="image" width="350" height="250"/>|
 | 나 정말 **"개로왕~🤴🏻"** | 코드 잘 좀 **"해종~🤴🏻"** | 우리 오늘 밤  **"세종.🤴🏻"** |
 
 </br>
 
 | 임연경 | 박미현 |
 |:----------:|:----------:|
-|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%97%B0%EA%B2%BD.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EB%AF%B8%ED%98%84.png" alt="image" width="200" height="250"/>|
+|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%ED%98%95%EC%A7%84.png" alt="image" width="200" height="250"/>|<img src="https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EB%AF%B8%ED%98%84.png" alt="image" width="200" height="250"/>|
 | **"우왕~🤴🏻"** 된당~ 흐히히 | 우리 모델 좋은거 **"인종~?🤴🏻"** |
 
 # 🤴🏻👑 역사적 인물이나 사건에 대해 알려주는 교육 챗봇 🤖
