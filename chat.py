@@ -19,7 +19,7 @@ load_dotenv()
 
 CHUNK_SIZE = 1000
 CHUNK_OVERLAP = 0
-MODEL_NAME  = 'gpt-4o-mini'
+MODEL_NAME  = 'gpt-4o'
 EMBEDDING_NAME = 'text-embedding-3-large'
 
 COLLECTION_NAME = 'korean_history'
@@ -56,7 +56,7 @@ def qna(query):
     prompt_template = ChatPromptTemplate(messages)
 
     # 모델
-    model = ChatOpenAI(model="gpt-4o")
+    model = ChatOpenAI(model=MODEL_NAME)
 
     # output parser
     parser = StrOutputParser()
