@@ -51,6 +51,7 @@
    >
 
 
+![image](https://github.com/user-attachments/assets/988694dc-79c2-4088-a629-0b5d12b85f9e)
 
    
 ✔ **산출물**
@@ -66,9 +67,13 @@
 
    > 평가 결과
       - context_recall': 0.7000
-      - llm_context_precision_with_reference': 0.8833
-      - faithfulness': 0.8358
-      - answer_relevancy': 0.6326
+
+      - llm_context_precision_with_reference': 0.8833  
+      
+      - faithfulness': 0.8358  
+      
+      - answer_relevancy': 0.6326  
+      
 
 
 ## 프로젝트 진행 과정
