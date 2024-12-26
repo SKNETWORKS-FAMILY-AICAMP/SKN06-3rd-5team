@@ -321,9 +321,8 @@
          result = evaluate(dataset=eval_dataset, metrics=metrics)
          ```
 ### 평가 결과
-   ```
-   context_recall': 0.7000, llm_context_precision_with_reference': 0.8833, faithfulness': 0.8358, answer_relevancy': 0.6326
-   ```
+   ![image](https://github.com/user-attachments/assets/6e38430a-7864-4ac0-9907-6bb0e9eaf34b)
+
       
 
 
