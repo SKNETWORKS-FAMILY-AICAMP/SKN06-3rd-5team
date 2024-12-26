@@ -82,4 +82,4 @@ if __name__ == "__main__":
             break
 
     # query = "도시락 폭탄을 던진 사람은 누구인가요?"    
-    TTS("query")
+    TTS(query)
