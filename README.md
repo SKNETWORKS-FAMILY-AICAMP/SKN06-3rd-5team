@@ -420,9 +420,9 @@
       >  특히, 낮은 점수를 보이는 answer_relevancy 지표 개선에 우선적으로 집중
    
 ### 결과 화면
-   ## 🤴🏻인물
+   #### 🤴🏻인물
    ![image](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EA%B2%B0%EA%B3%BC%ED%8C%8C%EC%9D%BC-%EC%9D%B8%EB%AC%BC.png)
-   ## ⭐️사건
+   #### ⭐️사건
    ![image](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EA%B2%B0%EA%B3%BC%ED%8C%8C%EC%9D%BC-%EC%82%AC%EA%B1%B4.png)
 
 ### Stack
