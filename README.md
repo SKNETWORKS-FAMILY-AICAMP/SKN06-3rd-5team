@@ -88,7 +88,7 @@
 
 #### 1.1 데이터 수집
   - **목표**
-    > 프로젝트 주제에 맞는 데이터를 수집
+    > 프로젝트 주제에 맞고 신뢰성이 있는 데이터를 수집
     > 
   - **방법**
     > 공개 데이터셋 다운로드(우리역사넷 한국사연대기 PDF자료)
@@ -99,14 +99,14 @@
 #### 1.2 데이터 전처리
   - **작업**
     - 한자 제거
-    >
     > ```full_text = re.sub(r"\([一-龥]+\)", "", full_text) ```
+    > 
     - "관련사료" 글씨 제거
+    > ```full_text = re.sub(r"관련사료", "", full_text)```
     >
-    >```full_text = re.sub(r"관련사료", "", full_text)```
     - 줄바꿈 제거
+    > ```full_text = re.sub(r"\n", "", full_text)```
     >
-    >```full_text = re.sub(r"\n", "", full_text)```
   - **코드**
     ```
     full_text = [doc.page_content for doc in load_docs] 
@@ -122,8 +122,9 @@
 
 #### 2.1 텍스트 임베딩 생성
   - **목표**
-    > 텍스트 데이터를 벡터 형태로 변환
-    >  
+    > 텍스트 데이터를 수치 벡터로 변환
+    >
+    > 
 
   - **코드**
     ```
@@ -137,21 +138,32 @@
       # Embedding 모델 초기화
       embedding_model = OpenAIEmbeddings(model=EMBEDDING_NAME)
     ```
+    ```
+    # Embedding 생성
+    from langchain_openai import OpenAIEmbeddings
+      
+    embedding_model = OpenAIEmbeddings(model=EMBEDDING_NAME)
+    vector_store = Chroma(
+        collection_name=COLLECTION_NAME, 
+        persist_directory=PERSIST_DIRECTORY, 
+        embedding_function=embedding_model
+    )
+    ```
 
 
 
 #### 2.2 벡터 데이터베이스 저장
   - **목표**
     > 생성된 벡터를 벡터 데이터베이스에 저장
-    > 
+    >
 
   - **코드**
     ```
     # Vector store 연결
     vector_store = Chroma(
-    collection_name=COLLECTION_NAME,
-    persist_directory=PERSIST_DIRECTORY,
-    embedding_function=embedding_model
+       collection_name=COLLECTION_NAME,
+       persist_directory=PERSIST_DIRECTORY,
+       embedding_function=embedding_model
     )
     ```
 
@@ -190,7 +202,7 @@
         인물의 이름 :
         시대 :
         인물에 대해 알고 싶은 것 :
-    {context}"""),
+        {context}"""),
         ("human", "{question}"),
        ]
     prompt_template = ChatPromptTemplate(messages=messages)
@@ -204,7 +216,7 @@
     # Vector 데이터베이스에서 검색 수행
     retriever = vector_store.as_retriever(search_type="mmr")
 
-    # Chain 구성 retriever(관련 문서 조회) -> prompt_template(prompt 생성) model(정답) -> output parser
+    # Chain 구성 retriever(관련 문서 조회) -> prompt_template(prompt 생성) -> model(정답) -> output parser
     chain = {"context":retriever, "question":RunnablePassthrough()} | prompt_template | model | parser
     ```
 
@@ -214,26 +226,26 @@
 
 #### 4.1 평가 작업
    1. PDF 문서 로드 및 전처리
-      > PDF 파일을 로드하고 필요한 텍스트를 추출하여 전처리.
+      > PDF 파일을 로드하고 필요한 텍스트를 추출하여 전처리
       >
-      > 텍스트를 문서 형식(Document)으로 변환.
+      > 텍스트를 문서 형식(Document)으로 변환
 
    2. 텍스트 분할
-      > 추출된 텍스트를 RecursiveCharacterTextSplitter를 사용하여 적절한 크기로 분할.
+      > 추출된 텍스트를 RecursiveCharacterTextSplitter를 사용하여 적절한 크기로 분할
       > 
    3. 평가용 데이터 생성
-      > 전처리된 문서에서 샘플 컨텍스트를 무작위로 선택.
+      > 전처리된 문서에서 샘플 컨텍스트를 무작위로 선택
       >
-      > ChatOpenAI 모델을 활용하여 질문-정답 쌍을 생성.
+      > ChatOpenAI 모델을 활용하여 질문-정답 쌍을 생성
    
    4. RAG(Recovery-Augmented Generation) 체인 생성
-      > 검색 모델(retriever)과 LLM을 연결하여 사용자 입력에 대한 답변과 검색된 컨텍스트를 생성.
+      > 검색 모델(retriever)과 LLM을 연결하여 사용자 입력에 대한 답변과 검색된 컨텍스트를 생성
       > 
    5. 모델 평가 메트릭 설정
-      > LLMContextRecall, LLMContextPrecisionWithReference, Faithfulness, AnswerRelevancy 등의 메트릭 설정.
+      > LLMContextRecall, LLMContextPrecisionWithReference, Faithfulness, AnswerRelevancy 등의 메트릭 설정
       > 
    6. 평가 수행
-      > 생성된 질문-정답 쌍을 사용하여 모델의 응답을 평가.
+      > 생성된 질문-정답 쌍을 사용하여 모델의 응답을 평가
       > 
 #### 4.2 평가 과정
    1. PDF 문서 로드 및 전처리
