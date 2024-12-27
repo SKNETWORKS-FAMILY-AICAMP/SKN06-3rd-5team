@@ -121,17 +121,15 @@
        chunk_overlap=CHUNK_OVERLAP,
        )
       ```
-  - **코드**
-    ```
-    full_text = [doc.page_content for doc in load_docs] 
-    full_text = ''.join(full_text)
-    full_text = re.sub(r"관련사료", "", full_text)
-    full_text = re.sub(r"\([一-龥]+\)", "", full_text)
-    full_text = re.sub(r"\n", "", full_text)
-    ```
-
-
-
+  - **오류 발생 및 해결**
+    > 데이터를 embedding하는 과정에서 모델이 요청하는 토큰 수가 text-embedding-3-large의 최대 토큰 수인 1000000을 넘어 오류 발생
+    >
+    > => 한국사와 관련 없는 데이터를 일부 삭제
+    > 
+    > => 삭제 후에도 토큰 수가 충족되지 않아 데이터의 디렉토리를 나누어 카테고리별 embedding을 진행하여 동일한 vector_store에 저장
+    > 
+![image](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EC%A0%84%EC%B2%98%EB%A6%AC%20%EC%98%A4%EB%A5%981.png)
+![image](https://github.com/SKNETWORKS-FAMILY-AICAMP/SKN06-3rd-5team/blob/main/%EC%82%AC%EC%A7%84/%EC%A0%84%EC%B2%98%EB%A6%AC%20%EC%98%A4%EB%A5%982.png)
 ### 2. 벡터화 및 벡터 데이터베이스 저장
 
 #### 2.1 텍스트 임베딩 생성
@@ -358,6 +356,10 @@
          
          result = evaluate(dataset=eval_dataset, metrics=metrics)
          ```
+         - **오류 발생 및 해결**
+            > gpt-4o로 진행했을 때 분당 토큰 제한을 넘어 Timeout-error발생
+            >
+            > => TPM(분당 토큰 제한)이 gpt-4o가 30,000이고 gpt-4o-mini가 200,000TPM이어서 TPM의 더 큰 gpt-4o-mini로 진행
 ### ⭐️ 평가 결과 ⭐️
 ![image](https://github.com/user-attachments/assets/6e38430a-7864-4ac0-9907-6bb0e9eaf34b)
    
@@ -367,7 +369,7 @@
    | ------ | ------ | ------ | ------- |
    | **context_recall** | 0.7000 | 점수가 70%로 중간 정도 성능 | 모델이 컨텍스트 내 정보를 어느 정도 활용하고 있지만, 일부 중요한 정보를 놓치고 있는 것같음|
    | **llm_context_precision_with_reference** | 0.8833 | 점수가 88%로 높은 수준 | 모델은 제공된 문맥 내 정보를 정확히 이해하고, 기준에 부합하는 답변을 생성하고 있는 것같음 | 
-   | **faithfulness** | 0.8358 | 점수가 83%로 신뢰할 만한 수준 | 일부 정보 왜곡 의심 | 
+   | **faithfulness** | 0.8358 | 점수가 83%로 신뢰할 만한 수준 | 모델이 문맥에서 벗어나지 않고 답변을 생성하는 것으로 보여짐 | 
    | **answer_relevancy** | 0.6326 | 점수가 63%로 상대적으로 낮은 점수 | 질문과 관련 없는 내용이 포함되거나, 질문에 대한 직접적인 답변을 생성하지 못하는 것같음 |
      
       
