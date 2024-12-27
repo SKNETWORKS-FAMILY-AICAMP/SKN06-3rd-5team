@@ -333,7 +333,7 @@
              }
          )
          ```
-   4. 질문 생성 및 context 데이터프레임 생성
+   4. 생성된 평가 데이터를 DataFrame형태로 생성
       - **user_input**: 램덤으로 생성된 질문
       - **qa_context**: 질문-답변 쌍을 만들때 참조한 context
       - **reference**: 질문의 정답(ground truth)
