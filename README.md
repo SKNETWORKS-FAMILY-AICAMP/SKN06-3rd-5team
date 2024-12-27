@@ -337,7 +337,7 @@
       - **user_input**: 램덤으로 생성된 질문
       - **qa_context**: 질문-답변 쌍을 만들때 참조한 context
       - **reference**: 질문의 정답(ground truth)
-      - **retrieved_context**: 선별된 context
+      - **retrieved_context**: 추출되어 문자열 형태로 변환된 context
       - **llm_answer**: LLM의 답변(응답)
       - ![image](https://github.com/user-attachments/assets/49e382eb-7a46-42c1-b855-68bc7e3e1bbf)
          
