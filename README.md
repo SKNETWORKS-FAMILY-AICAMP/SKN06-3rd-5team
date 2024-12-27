@@ -333,7 +333,15 @@
              }
          )
          ```
-   4. 모델 평가
+   4. 질문 생성 및 context 데이터프레임 생성
+      - **user_input**: 램덤으로 생성된 질문
+      - **qa_context**: 질문-답변 쌍을 만들때 참조한 context
+      - **reference**: 질문의 정답(ground truth)
+      - **retrieved_context**: 선별된 context
+      - **llm_answer**: LLM의 답변(응답)
+      - ![image](https://github.com/user-attachments/assets/49e382eb-7a46-42c1-b855-68bc7e3e1bbf)
+         
+   5. 모델 평가
          ```
          from ragas.metrics import (
              LLMContextRecall, Faithfulness, LLMContextPrecisionWithReference, AnswerRelevancy
